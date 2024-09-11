@@ -7,9 +7,9 @@ class Access:
         初始化Access类
         """
         if isinstance(context,stt.ISL_Context):
-            self._context = context
+            self._context = context.ctx()
         else: 
-            raise Exception('类型错误')
+            raise Exception('传入参数类型错误')
         self._tensor_name = tensor_name
         
         if access_str is not None:

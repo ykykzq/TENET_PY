@@ -3,7 +3,7 @@ import islpy as isl
 
 class ISL_Context:
     
-    def __init__(self,file_path):
+    def __init__(self, file_path):
         """
         初始化类，初始化ISL上下文与文件句柄
         """

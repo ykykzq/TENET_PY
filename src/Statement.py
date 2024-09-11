@@ -3,15 +3,15 @@ import src.Access as Access
 import src.stt as stt
 
 class Statement:
-    def __init__(self,context, statement_domain_str=None) -> None:
+    def __init__(self, context, statement_domain_str=None) -> None:
         """
         初始化Statement类
         """
 
         if isinstance(context,stt.ISL_Context):
-            self._context = context
+            self._context = context.ctx()
         else: 
-            raise Exception('类型错误')
+            raise Exception('传入参数类型错误')
         
         if statement_domain_str is not None:
             self._domain = isl.UnionSet.read_from_str(self._context,statement_domain_str)

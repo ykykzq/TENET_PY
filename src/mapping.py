@@ -1,15 +1,18 @@
 import islpy as isl
+import stt
 
 class mapping:
     def __init__(self,context,space_map_str,time_map_str) -> None:
         """
         初始化mapping类。如果指定了时空映射字符串，则也初始化。
         """
-        
-        self._context = context
+        if isinstance(context,stt.ISL_Context):
+            self._context = context.ctx()
+        else:
+            raise Exception('传入参数错误')
         if space_map_str and time_map_str:
-            self._space_map = isl.UnionMap.read_from_str(context,space_map_str)
-            self._time_map = isl.UnionMap.read_from_str(context,time_map_str)
+            self._space_map = isl.UnionMap.read_from_str(self._context,space_map_str)
+            self._time_map = isl.UnionMap.read_from_str(self._context,time_map_str)
         else:
             self._space_map = None
             self._time_map = None
