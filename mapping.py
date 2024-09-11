@@ -20,8 +20,8 @@ class mapping:
         """
         try:
             with open(filename,'r') as file:
-                space_map_str = file.readline.strip()
-                time_map_str = file.readline.strip()
+                space_map_str = file.readline().strip()
+                time_map_str = file.readline().strip()
                 self._space_map = isl.UnionMap.read_from_str(self._context,space_map_str)
                 self._time_map = isl.UnionMap.read_from_str(self._context,time_map_str)
                 

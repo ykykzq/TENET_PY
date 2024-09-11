@@ -7,36 +7,31 @@ class ISL_Context:
         """
         初始化类，初始化ISL上下文与文件句柄
         """
-        self.__file = open(file_path,'w')
-        self.__ctx = isl.Context()
-        self.__p = isl.Printer.to_file(self.__ctx,self.__file)
+        
+        self._file = open(file_path,'w')
+        self._ctx = isl.Context()
+
         
     def __del__(self):
         """
         析构函数，关闭文件，释放资源
         """
-        self.__file.close()
+        self._file.close()
     
     def ctx(self):
         """
         返回类的上下文
         """
-        return self.__ctx
+        return self._ctx
     
     def file(self):
         """
         返回类的文件句柄
         """
-        return self.__file
-    
-    def printer(self,fn,*args):
-        """
-        调用 ISL 打印对象的函数
-        """
-        self._p = fn(self.__ctx,*args)
+        return self._file
     
     def printf(self,*args):
         """
         把格式化的输出写入文件
         """
-        print(*args,file=self.__file)
+        print(*args,file=self._file)
