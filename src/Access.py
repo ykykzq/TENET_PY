@@ -1,11 +1,15 @@
 import islpy as isl
+import src.stt as stt
 
 class Access:
     def __init__(self,context,tensor_name='',access_str=None,is_write=False) -> None:
         """
         初始化Access类
         """
-        self._context = context
+        if isinstance(context,stt.ISL_Context):
+            self._context = context
+        else: 
+            raise Exception('类型错误')
         self._tensor_name = tensor_name
         
         if access_str is not None:

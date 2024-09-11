@@ -1,13 +1,18 @@
 import islpy as isl
-import Access
-import stt
+import src.Access as Access
+import src.stt as stt
 
 class Statement:
     def __init__(self,context, statement_domain_str=None) -> None:
         """
         初始化Statement类
         """
-        self._context = context
+
+        if isinstance(context,stt.ISL_Context):
+            self._context = context
+        else: 
+            raise Exception('类型错误')
+        
         if statement_domain_str is not None:
             self._domain = isl.UnionSet.read_from_str(self._context,statement_domain_str)
         else:
@@ -19,11 +24,14 @@ class Statement:
         """
         添加access，区分读写
         """
-        if access._is_wirte:
-            self._write.append(access)
-        else:
-            self._read.append(access)
-    
+        if isinstance(access,Access.Access):
+            if access._is_wirte:
+                self._write.append(access)
+            else:
+                self._read.append(access)
+        else: 
+            raise Exception('类型错误')
+        
     def load(self,filename):
         """
         从文件加载语句域和读写
@@ -63,6 +71,9 @@ class Statement:
         获取指定张量的访问映射
         """
         result = None
+        
+        if access not in ['read','write','read_or_wirte']:
+            raise Exception('access_type输入参数错误')
         
         if access_type in ['read','read_or_write']:
             for access in self._read:
