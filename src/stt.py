@@ -7,8 +7,11 @@ class ISL_Context:
         """
         初始化类，初始化ISL上下文与文件句柄
         """
-        
-        self._file = open(file_path,'w')
+        try:
+            with open(file_path,'w') as file:
+                self._file = file
+        except IOError as e:
+            print(e)
         self._ctx = isl.Context()
 
         
